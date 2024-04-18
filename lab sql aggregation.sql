@@ -8,11 +8,10 @@ FROM film;
 # 1.2. Express the average movie duration in hours and minutes. Don't use decimals.
 # Hint: Look for floor and round functions.
 SELECT 
-    CONCAT(
-        FLOOR(AVG(length) / 60), ' hours ', 
-        ROUND (AVG(length) % 60), ' minutes'
-    ) AS avg_duration
+    FLOOR(AVG(length) / 60) AS hours,
+    ROUND(AVG(length) % 60) AS minutes
 FROM film;
+
 
 # You need to gain insights related to rental dates:
 # 2.1 Calculate the number of days that the company has been operating.
@@ -22,10 +21,11 @@ FROM rental;
 
 # 2.2 Retrieve rental information and add two additional columns to show the month and weekday of the rental. Return 20 rows of results.
 SELECT *,
-    MONTH(rental_date) AS rental_month,
-    DAYNAME(rental_date) AS rental_weekday
+    DATE_FORMAT(rental_date, '%M') AS rental_month,
+    DATE_FORMAT(rental_date, '%W') AS rental_weekday
 FROM rental
 LIMIT 20;
+
 
 # 2.3 Bonus: Retrieve rental information and add an additional column called DAY_TYPE with values 'weekend' or 'workday', depending on the day of the week.
 # Hint: use a conditional expression.
